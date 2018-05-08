@@ -1,0 +1,9 @@
+.align-center {
+	text-align: center !important;
+}
+
+.footer {
+	background-color: #dedede;
+	padding-top: 20px;
+	padding-bottom: 5px;
+}

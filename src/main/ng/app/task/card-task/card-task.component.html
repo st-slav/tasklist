@@ -1,0 +1,40 @@
+<div>
+	<div class="form-group">
+		<label for="name">Наименование:</label>
+		<input type="text" class="form-control" id="name" [disabled]="viewFormFlag" [(ngModel)]="task.name" #name="ngModel" required>
+		<div [hidden]="name.valid || name.untouched" class="alert alert-danger">Обязательно для заполения</div>
+	</div>
+	<div class="form-group">
+		<label for="creatUser">Создатель:</label>
+		<select class="custom-select" id="creatUser" [disabled]="viewFormFlag" [(ngModel)]="task.createdUser" #createdUser="ngModel" required>
+			<option *ngFor="let user of users" [ngValue]="user.id">{{user.name}}</option>
+		</select>
+		<div [hidden]="createdUser.valid || createdUser.untouched" class="alert alert-danger">Обязательно для заполения</div>
+	</div>
+	<div class="form-group">
+		<label for="assignUser">Исполнитель:</label>
+		<select class="custom-select" id="assignUser" [disabled]="viewFormFlag" [(ngModel)]="task.assignedUser" #assignedUser="ngModel" description required>
+			<option *ngFor="let user of users" [ngValue]="user.id">{{user.name}}</option>
+		</select>
+		<div [hidden]="assignedUser.valid || assignedUser.untouched" class="alert alert-danger">Обязательно для заполения</div>
+	</div>
+	<div class="form-group">
+		<label for="status">Статус:</label>
+		<select class="custom-select" id="status" [disabled]="viewFormFlag" [(ngModel)]="task.status" #status="ngModel" required>
+			<option *ngFor="let stat of statuses" [ngValue]="stat.id">{{stat.name}}</option>
+		</select>
+		<div [hidden]="status.valid || status.untouched" class="alert alert-danger">Обязательно для заполения</div>
+	</div>
+	<div class="form-group">
+		<label for="description">Подробное описание:</label>
+		<textarea class="form-control" id="description" rows="3" [disabled]="viewFormFlag" [(ngModel)]="task.description" #description="ngModel" required></textarea>
+        <div [hidden]="description.valid || description.untouched" class="alert alert-danger">Обязательно для заполения</div>
+	</div>
+</div>
+<p>
+	<input type="button" 
+			[disabled]="name.invalid || createdUser.invalid || assignedUser.invalid || status.invalid || description.invalid" 
+			[hidden]="viewFormFlag" class="btn btn-outline-primary" (click)="saveTask(task)" value="Сохранить">
+	<input routerLink="/edit/{{task?.id}}" type="button" [hidden]="addFormFlag || updateFormFlag" class="btn btn-outline-primary" value="Изменить">
+	<input type="button" [hidden]="addFormFlag" class="btn btn-outline-danger" (click)="delTask(task)" value="Удалить">
+</p>
